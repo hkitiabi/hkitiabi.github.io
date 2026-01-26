@@ -1,0 +1,1344 @@
+
+/* ==========================================================================
+   Full CSS file — white background, centered whole site, Python-docs-like spacing
+   Includes: centered header/nav, improved grid, clean cards, fixed avatar placeholder,
+   better typography rhythm, accessible focus states, mobile responsiveness.
+   ========================================================================== */
+
+/* ---------- Theme tokens ---------- */
+:root {
+  /* Colors */
+  --bg: #ffffff;            /* pure white (per request) */
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #306998;        /* Python-ish blue */
+  --accent-hover: #1e4f7a;
+  --border: #e5e7eb;
+  --soft: #f9fafb;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --base-size: 16px;
+  --line: 1.7;
+
+  /* Layout */
+  --page-width: 1100px;     /* centers the entire website */
+  --gutter: 24px;           /* left/right padding */
+  --pad-y: 48px;            /* top/bottom padding for main */
+  --header-h: 64px;
+
+  /* Grid */
+  --sidebar-min: 260px;
+  --sidebar-max: 320px;
+  --gap: 32px;
+
+  /* Components */
+  --radius: 8px;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Focus */
+  --focus-ring: 0 0 0 3px rgba(48, 105, 152, 0.25);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  font-size: var(--base-size);
+  text-size-adjust: 100%;
+  color-scheme: light;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: var(--line);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- Center the whole site ----------
+   Preferred: wrap your entire site in <div class="page"> ... </div>
+   Fallback: this also centers header/nav/main/footer if you don't add .page
+-------------------------------------------- */
+.page,
+header .nav,
+main,
+.footer {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+/* ---------- Typography ---------- */
+p { margin: 0 0 1.25rem; }
+
+small, .muted { color: var(--muted); }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 2.25rem 0 0.75rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+  line-height: 1.25;
+}
+
+h2 { font-size: clamp(1.35rem, 1.9vw, 1.65rem); line-height: 1.35; }
+h3 { font-size: 1.15rem; line-height: 1.4; }
+
+ul, ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+}
+
+li { margin: 0.25rem 0; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+/* ---------- Links + accessibility ---------- */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 6px;
+}
+
+/* ---------- Header / Nav (centered to match content) ---------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+/* If you use .nav inside header, it will be centered by the rule above */
+.nav {
+  height: var(--header-h);
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-weight: 750;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+nav a {
+  font-weight: 650;
+  position: relative;
+  padding: 0.25rem 0.1rem;
+}
+
+/* underline indicator */
+nav a:hover::after,
+nav a:focus-visible::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* active state if you add aria-current="page" */
+nav a[aria-current="page"] {
+  color: var(--accent-hover);
+}
+nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-hover);
+}
+
+/* ---------- Main spacing (Python-docs-like padding) ---------- */
+main {
+  padding: var(--pad-y) var(--gutter);
+}
+
+/* Optional: if you have a .container wrapper, keep it centered */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- 2-column layout (sidebar + main content) ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(var(--sidebar-min), var(--sidebar-max)) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* Prevent overly wide main text blocks if your content is long-form */
+.content {
+  max-width: 74ch; /* add class="content" to your main column wrapper if you want */
+}
+
+/* Mobile stack */
+@media (max-width: 900px) {
+  :root {
+    --gutter: 18px;
+    --pad-y: 32px;
+    --gap: 22px;
+  }
+  .layout { grid-template-columns: 1fr; }
+  .nav { height: auto; padding: 12px var(--gutter); }
+}
+
+/* ---------- Cards / panels ---------- */
+.card,
+.sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+/* Keep main content cards from feeling too wide on large monitors */
+.card {
+  margin-bottom: 24px;
+}
+
+/* ---------- Sidebar behavior ---------- */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+  align-self: start;
+  line-height: 1.55;
+}
+
+/* Tighten vertical spacing inside sidebar */
+.sidebar p { margin-bottom: 0.75rem; }
+.sidebar hr { margin: 1rem 0; }
+
+/* ---------- Avatar (fix placeholder + ensure it looks intentional) ----------
+   Works for:
+   1) <img class="avatar" src="...">
+   2) <div class="avatar">Profile photo<br>placeholder</div>
+-------------------------------------------- */
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 10px;
+  margin: 0 auto 12px;
+  overflow: hidden;
+}
+
+img.avatar {
+  object-fit: cover;
+  padding: 0;
+  color: transparent; /* avoid alt text overlay */
+}
+
+/* ---------- Tables ---------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th { font-weight: 650; }
+
+/* ---------- Code (docs-like, subtle) ---------- */
+code,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+}
+
+code {
+  background: var(--soft);
+  border: 1px solid var(--border);
+  padding: 0.12em 0.35em;
+  border-radius: 6px;
+}
+
+pre {
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  overflow: auto;
+  margin: 0 0 1.5rem;
+}
+
+pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 28px var(--gutter);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Selection + reduced motion ---------- */
+::selection { background: rgba(48, 105, 152, 0.16); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+/* ==========================================================================
+   Faculty-page theme override (warm background + serif + profile card)
+   Paste at the END of your current CSS file.
+   ========================================================================== */
+
+/* --- Theme tokens: warm paper + classic serif like the reference --- */
+:root {
+  --bg: #fbf7e6;                 /* warm paper */
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #5b6472;
+  --accent: #1f77b4;             /* link blue similar to screenshot */
+  --accent-hover: #145a87;
+  --border: rgba(31, 41, 55, 0.12);
+  --soft: rgba(31, 41, 55, 0.04);
+
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(17, 24, 39, 0.08);
+
+  /* Typography swap */
+  --font-sans: ui-serif, Georgia, "Times New Roman", Times, serif;
+  --line: 1.85;
+
+  /* Layout proportions similar to reference */
+  --page-width: 1120px;
+  --sidebar-min: 340px;
+  --sidebar-max: 380px;
+  --gap: 44px;
+  --pad-y: 42px;
+}
+
+/* --- Base background & text rhythm --- */
+html, body {
+  background: var(--bg);
+}
+
+p { margin: 0 0 1.15rem; }
+
+/* Headings: serif, strong, similar weight to reference */
+h1, h2, h3 {
+  font-weight: 750;
+  letter-spacing: -0.015em;
+}
+h1 { font-size: clamp(2.2rem, 3.1vw, 2.8rem); line-height: 1.18; }
+h2 { font-size: 1.6rem; margin-top: 2.0rem; }
+h3 { font-size: 1.2rem; }
+
+/* Links like faculty pages */
+a { text-decoration-thickness: 1px; }
+a:hover { text-decoration: underline; }
+
+/* --- Header / Nav: simple, left-aligned, thin rule (like screenshot) --- */
+header {
+  background: transparent;
+  border-bottom: 0;
+}
+
+.nav {
+  height: auto;
+  padding: 18px var(--gutter) 12px;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.12);
+}
+
+/* Brand block more understated (optional) */
+.brand {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+nav {
+  gap: 22px;
+}
+
+/* Remove the thick underline indicator from earlier style */
+nav a:hover::after,
+nav a:focus-visible::after,
+nav a[aria-current="page"]::after {
+  content: none !important;
+}
+
+/* Add subtle underline only on hover/current */
+nav a {
+  font-weight: 700;
+  color: var(--text);
+  padding: 0;
+}
+nav a:hover,
+nav a[aria-current="page"] {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* --- Main cards: closer to "paper + soft shadow" --- */
+.card,
+.sidebar {
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+}
+
+/* Right column in the screenshot is mostly “no heavy card framing”.
+   If you want that look, make cards flatter: */
+.card {
+  padding: 30px 34px;
+  margin-bottom: 28px;
+}
+
+/* --- Left profile card: make it look like screenshot panel --- */
+.sidebar {
+  padding: 0; /* important: let image go edge-to-edge */
+  overflow: hidden;
+  position: sticky;
+  top: 18px; /* closer to screenshot (not under sticky header effect) */
+}
+
+/* Photo: rectangular, full width, tall */
+.sidebar .avatar,
+.sidebar img.avatar {
+  width: 100%;
+  height: 360px;               /* tall portrait like screenshot */
+  border-radius: 0;
+  border: 0;
+  margin: 0;
+  background: var(--soft);
+}
+
+/* Ensure image crops nicely */
+.sidebar img.avatar {
+  object-fit: cover;
+}
+
+/* Profile info area below photo */
+.sidebar .profile-block {
+  padding: 18px 18px 16px;
+}
+
+/* Name block (large, centered) */
+.sidebar .profile-name {
+  font-size: 1.55rem;
+  font-weight: 850;
+  margin: 0.25rem 0 0.25rem;
+  text-align: center;
+}
+
+/* Title/affiliation */
+.sidebar .profile-title {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 650;
+  margin: 0 0 0.75rem;
+}
+
+/* Contact strip look */
+.sidebar .profile-meta {
+  padding: 12px 18px 16px;
+  border-top: 1px solid rgba(31, 41, 55, 0.12);
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.sidebar .profile-meta a { color: var(--accent); }
+
+/* Tighten sidebar paragraph spacing */
+.sidebar p { margin: 0.35rem 0; }
+
+/* --- Content width: screenshot uses a wider text measure --- */
+.content {
+  max-width: 86ch;
+}
+
+/* --- News list styling similar to screenshot --- */
+.news {
+  margin-top: 1.0rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.12);
+}
+.news-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.10);
+}
+.news-date {
+  font-weight: 800;
+}
+.news-text {
+  color: var(--text);
+}
+
+/* Mobile: stack profile card photo and text nicely */
+@media (max-width: 900px) {
+  .sidebar { position: static; }
+  .sidebar .avatar,
+  .sidebar img.avatar { height: 280px; }
+  .news-item { grid-template-columns: 1fr; }
+}
+
+
+
+/* =========================================================
+   FIX: Frozen header, no overlap, centered website
+   ========================================================= */
+
+/* Header height (adjust if needed) */
+:root {
+  --header-h: 72px;
+}
+
+/* Freeze header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Ensure header has stable height */
+header .nav {
+  min-height: var(--header-h);
+}
+
+/* Push content down so it never hides under header */
+main {
+  padding-top: calc(var(--pad-y) + var(--header-h));
+}
+
+/* Center header, main content, and footer */
+header .nav,
+main,
+.footer {
+  max-width: var(--page-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Sidebar respects frozen header */
+.sidebar {
+  top: calc(var(--header-h) + 16px);
+}
+
+/* Prevent anchor links being hidden under header */
+html {
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+
+
+/* =========================================================
+   CENTER CONTENT + ADD SIDE BREATHING SPACE
+   ========================================================= */
+
+/* Overall page width (controls side space) */
+:root {
+  --page-width: 1000px;   /* try 1040–1120 if you want more/less space */
+  --side-space: 24px;
+}
+
+/* Center everything */
+header .nav,
+main,
+.footer {
+  max-width: var(--page-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--side-space);
+  padding-right: var(--side-space);
+}
+
+/* Keep body background visible on sides */
+body {
+  background-color: var(--bg);
+}
+
+/* Ensure layout grid stays centered */
+.layout {
+  justify-content: center;
+}
+
+/* Optional: limit text line length for readability */
+.content {
+  max-width: 72ch;
+}
+
+/* Mobile tuning */
+@media (max-width: 900px) {
+  :root {
+    --side-space: 16px;
+  }
+}
+
+/* =========================================================
+   HARD ALIGNMENT: header + sidebar + cards share same grid
+   ========================================================= */
+
+/* 1) Single source of truth for page width + side padding */
+:root {
+  --page-width: 1120px;   /* adjust if you want wider/narrower */
+  --gutter: 28px;         /* side space */
+  --header-h: 72px;       /* frozen header height */
+}
+
+/* 2) Header is full-width, but its INNER content uses the same grid as the page */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(31, 41, 55, 0.12);
+}
+
+/* Align header content to the same centered column as the layout */
+header .nav {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  min-height: var(--header-h);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* 3) Center the entire body content using ONE wrapper */
+.container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* 4) Space below header without shifting only the right column */
+.container {
+  padding-top: 22px; /* space under frozen header */
+}
+
+/* 5) Make the grid start flush: sidebar + main aligned at top */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(340px, 380px) minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+}
+
+/* 6) main is a GRID COLUMN here; remove any page padding that could shift it */
+.layout > main {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* 7) Remove extra top spacing inside the first card (often caused by heading margins) */
+.layout > main .card:first-child {
+  margin-top: 0;
+}
+.layout > main .card:first-child h1,
+.layout > main .card:first-child h2,
+.layout > main .card:first-child h3 {
+  margin-top: 0;
+}
+
+/* 8) Sticky sidebar should respect frozen header */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+}
+
+/* 9) Footer aligned to same grid */
+.footer {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* =========================================================
+   FREEZE LEFT PROFILE PANEL (SIDEBAR)
+   ========================================================= */
+
+/* Ensure layout allows sticky behavior */
+.layout {
+  align-items: start;
+}
+
+/* Freeze the entire left panel */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 16px); /* below frozen header */
+  align-self: start;
+  height: fit-content;
+}
+
+/* Safety: ensure no parent blocks sticky */
+.container,
+.layout {
+  overflow: visible;
+}
+/* =========================================================
+   CENTER SIDEBAR TEXT (name, tagline, meta, links)
+   ========================================================= */
+
+.sidebar {
+  text-align: center;          /* centers all text inside sidebar */
+}
+
+/* Name + tagline */
+.sidebar .name {
+  font-weight: 850;
+  margin: 12px 0 6px;
+}
+
+.sidebar .tagline {
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+/* Meta rows (Location/Email/Phone/Links) */
+.sidebar .meta {
+  margin: 10px 0;
+}
+
+/* Make the badge label appear above the value (cleaner, centered) */
+.sidebar .meta .badge {
+  display: block;
+  font-weight: 750;
+  margin-bottom: 4px;
+}
+
+/* Center the links row cleanly */
+.sidebar .meta a {
+  display: inline-block;
+}
+
+/* Optional: make the separator line centered/consistent */
+.sidebar hr {
+  margin: 16px auto;
+  width: 85%;
+}
+
+/* =========================================================
+   BALANCED INDENT (NOT CENTERED) FOR SIDEBAR CONTENT
+   ========================================================= */
+
+/* Keep sidebar text left-aligned */
+.sidebar {
+  text-align: left;
+}
+
+/* Indent all text blocks inside sidebar */
+.sidebar .name,
+.sidebar .tagline,
+.sidebar .meta {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+/* Slight hierarchy polish */
+.sidebar .name {
+  font-weight: 850;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.sidebar .tagline {
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+/* Meta rows spacing */
+.sidebar .meta {
+  margin: 10px 0;
+  line-height: 1.55;
+}
+
+/* Keep horizontal rules aligned with text block */
+.sidebar hr {
+  margin: 16px 18px;
+}
+
+/* Links stay left-aligned but clean */
+.sidebar .meta a {
+  white-space: nowrap;
+}
+/* =========================================================
+   PANEL POLISH PACK (cards + sidebar)
+   ========================================================= */
+
+/* 1) Softer borders + nicer shadows + consistent radius */
+:root{
+  --panel-radius: 14px;
+  --panel-border: rgba(17, 24, 39, 0.10);
+  --panel-shadow: 0 10px 28px rgba(17, 24, 39, 0.10);
+  --panel-shadow-hover: 0 14px 34px rgba(17, 24, 39, 0.14);
+}
+
+/* Apply to all panels */
+.card,
+.sidebar{
+  border-radius: var(--panel-radius);
+  border: 1px solid var(--panel-border);
+  background: rgba(255,255,255,0.92);
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(6px); /* subtle “premium” feel */
+}
+
+/* 2) Make cards breathe a little more */
+.card{
+  padding: 34px 38px;
+  margin-bottom: 30px;
+}
+
+/* 3) Slight hover lift on desktop (optional, tasteful) */
+@media (hover:hover) and (pointer:fine){
+  .card:hover,
+  .sidebar:hover{
+    box-shadow: var(--panel-shadow-hover);
+    transform: translateY(-2px);
+    transition: box-shadow 180ms ease, transform 180ms ease;
+  }
+}
+
+/* 4) Sidebar: make it look like a single composed panel */
+.sidebar{
+  overflow: hidden;         /* photo corners match panel */
+}
+
+/* Photo: full width, consistent height and cropping */
+.sidebar img.avatar{
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 0;         /* let sidebar corner radius handle it */
+}
+
+/* 5) Sidebar text rhythm + dividers */
+.sidebar .name{
+  font-size: 1.28rem;
+  font-weight: 850;
+  margin: 16px 0 6px;
+}
+.sidebar .tagline{
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+.sidebar .meta{
+  margin: 10px 0;
+  line-height: 1.55;
+}
+.sidebar hr{
+  border: 0;
+  border-top: 1px solid rgba(17, 24, 39, 0.10);
+  margin: 16px 0;
+}
+
+/* Indent sidebar text blocks for balanced look (keeps photo edge-to-edge) */
+.sidebar .name,
+.sidebar .tagline,
+.sidebar .meta{
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+/* 6) Card typography: more “faculty page” rhythm */
+.kicker{
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: rgba(31, 41, 55, 0.75);
+  margin-bottom: 8px;
+}
+
+.card h1{
+  margin: 0.35rem 0 0.85rem;
+  line-height: 1.08;
+}
+.card p{
+  margin-bottom: 1.1rem;
+  color: rgba(31, 41, 55, 0.90);
+}
+
+/* 7) Lists inside cards: tighter + cleaner */
+.card ul{
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+}
+.card li{
+  margin: 0.45rem 0;
+}
+.list-tight li{
+  margin: 0.38rem 0;
+}
+
+/* 8) Buttons/links: make “View CV” look intentional */
+a.btn{
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(31, 119, 180, 0.25);
+  background: rgba(31, 119, 180, 0.08);
+  text-decoration: none;
+  font-weight: 700;
+}
+a.btn:hover{
+  background: rgba(31, 119, 180, 0.12);
+  border-color: rgba(31, 119, 180, 0.35);
+  text-decoration: none;
+}
+
+/* 9) Responsive: slightly reduce padding on smaller screens */
+@media (max-width: 900px){
+  .card{ padding: 26px 22px; }
+  .sidebar img.avatar{ height: 260px; }
+  .sidebar .name,
+  .sidebar .tagline,
+  .sidebar .meta{ padding-left: 18px; padding-right: 18px; }
+}
+/* =========================================================
+   PROFILE PANEL POLISH (LEFT SIDEBAR ONLY)
+   ========================================================= */
+
+/* 1) Make the profile panel feel premium */
+.sidebar {
+  border-radius: 16px;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.10);
+  overflow: hidden;                 /* photo corners match card */
+}
+
+/* 2) Full-bleed portrait image (no circle, no border ring) */
+.sidebar img.avatar {
+  display: block;
+  width: 100%;
+  height: 320px;                    /* adjust: 280–360 */
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;                 /* use sidebar rounding */
+  margin: 0;
+  padding: 0;
+  background: rgba(17, 24, 39, 0.04);
+}
+
+/* If the fallback HK div appears, style it nicely too */
+.sidebar .avatar {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 850;
+  font-size: 2.2rem;
+  color: rgba(31, 41, 55, 0.65);
+  background: rgba(17, 24, 39, 0.04);
+}
+
+/* 3) Balanced indent for text content (not centered) */
+.sidebar .name,
+.sidebar .tagline,
+.sidebar .meta {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+/* 4) Improve name + tagline typography */
+.sidebar .name {
+  margin: 16px 0 6px;
+  font-size: 1.28rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: rgba(17, 24, 39, 0.95);
+}
+
+.sidebar .tagline {
+  margin: 0 0 14px;
+  font-size: 1.02rem;
+  color: rgba(31, 41, 55, 0.70);
+}
+
+/* 5) Divider lines: lighter and consistent */
+.sidebar hr {
+  border: 0;
+  border-top: 1px solid rgba(17, 24, 39, 0.10);
+  margin: 16px 0;
+}
+
+/* 6) Meta rows: cleaner spacing + subtle label styling */
+.sidebar .meta {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: rgba(31, 41, 55, 0.92);
+}
+
+/* Your HTML uses <span class="badge">Location</span> inline.
+   Make the badge a subtle label and keep it aligned. */
+.sidebar .badge {
+  display: inline-block;
+  font-weight: 800;
+  color: rgba(17, 24, 39, 0.85);
+  margin-right: 8px;
+}
+
+/* 7) Links area: wrap nicely, keep balanced */
+.sidebar .meta a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.sidebar .meta a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* 8) Optional: subtle inner spacing at bottom */
+.sidebar {
+  padding-bottom: 10px;
+}
+
+/* 9) Responsive adjustments */
+@media (max-width: 900px) {
+  .sidebar img.avatar,
+  .sidebar .avatar {
+    height: 260px;
+  }
+
+  .sidebar .name,
+  .sidebar .tagline,
+  .sidebar .meta {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+/* =========================================================
+   TIGHT PROFILE PANEL SPACING (NO EXTRA LINE GAPS)
+   ========================================================= */
+
+/* Overall tighter line height in sidebar */
+.sidebar {
+  line-height: 1.35;
+}
+
+/* Name + tagline: compact */
+.sidebar .name {
+  margin: 12px 0 2px;     /* was larger */
+}
+
+.sidebar .tagline {
+  margin: 0 0 10px;
+}
+
+/* Meta blocks: remove extra vertical gaps */
+.sidebar .meta {
+  margin: 4px 0;          /* very tight */
+  line-height: 1.35;
+}
+
+/* If you show labels as separate lines (Location / Email / Phone) */
+.sidebar .badge {
+  display: block;
+  margin: 0 0 2px;        /* no gap under label */
+  font-weight: 800;
+}
+
+/* Text immediately under labels */
+.sidebar .meta span,
+.sidebar .meta a,
+.sidebar .meta div {
+  margin: 0;
+  padding: 0;
+}
+
+/* Links block: keep compact */
+.sidebar .meta:last-of-type {
+  margin-top: 6px;
+}
+
+/* Divider lines: tighter */
+.sidebar hr {
+  margin: 12px 0;
+}
+/* =========================================================
+   FACULTY / GRANTS FINAL POLISH PACK
+   Goal: credible, scannable, committee-friendly.
+   ========================================================= */
+
+/* Layout / readability */
+:root{
+  --page-width: 1120px;
+  --gutter: 28px;
+  --header-h: 72px;
+
+  --panel-radius: 16px;
+  --panel-border: rgba(17, 24, 39, 0.10);
+  --panel-shadow: 0 12px 30px rgba(17, 24, 39, 0.10);
+
+  --text-strong: rgba(17, 24, 39, 0.94);
+  --text-body: rgba(31, 41, 55, 0.88);
+  --text-muted: rgba(31, 41, 55, 0.66);
+}
+
+/* Center everything consistently */
+header{
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: var(--bg);
+  border-bottom: 1px solid var(--panel-border);
+}
+header .nav{
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 14px var(--gutter);
+  min-height: var(--header-h);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.container{
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 22px var(--gutter) 0;
+}
+
+.layout{
+  display: grid;
+  grid-template-columns: minmax(340px, 380px) minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.layout > main{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Panels */
+.card, .sidebar{
+  border-radius: var(--panel-radius);
+  border: 1px solid var(--panel-border);
+  background: #fff;
+  box-shadow: var(--panel-shadow);
+}
+
+/* Content card spacing for professional rhythm */
+.card{
+  padding: 36px 40px;
+  margin-bottom: 30px;
+}
+
+/* Typography tuned for committees */
+body{
+  color: var(--text-body);
+  letter-spacing: -0.01em;
+}
+.card p{ color: var(--text-body); }
+.card strong{ color: var(--text-strong); }
+
+/* Headings: confident, not “bloggy” */
+h1, h2, h3{
+  color: var(--text-strong);
+}
+.card h1{
+  margin: 0.35rem 0 0.85rem;
+  line-height: 1.08;
+  font-weight: 900;
+}
+.card .kicker{
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* Make lists read like CV bullets */
+.card ul{
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+}
+.card li{
+  margin: 0.48rem 0;
+  color: var(--text-body);
+}
+
+/* Buttons: understated but strong */
+a.btn{
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(48, 105, 152, 0.28);
+  background: rgba(48, 105, 152, 0.08);
+  text-decoration: none;
+  font-weight: 750;
+}
+a.btn:hover{
+  background: rgba(48, 105, 152, 0.12);
+  border-color: rgba(48, 105, 152, 0.38);
+  text-decoration: none;
+}
+
+/* Sidebar: hiring-ready “profile card” */
+.sidebar{
+  overflow: hidden;
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+  align-self: start;
+  height: fit-content;
+}
+
+.sidebar img.avatar{
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Sidebar content indentation (balanced, not centered) */
+.sidebar .name,
+.sidebar .tagline,
+.sidebar .meta{
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+.sidebar .name{
+  margin: 16px 0 6px;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.22;
+  color: var(--text-strong);
+}
+.sidebar .tagline{
+  margin: 0 0 12px;
+  color: var(--text-muted);
+}
+
+.sidebar hr{
+  border: 0;
+  border-top: 1px solid var(--panel-border);
+  margin: 14px 0;
+}
+
+/* Meta lines: tight, committee-scannable */
+.sidebar{
+  line-height: 1.35;
+}
+.sidebar .meta{
+  margin: 6px 0;
+}
+.sidebar .badge{
+  font-weight: 850;
+  margin-right: 8px;
+  color: var(--text-strong);
+}
+
+/* Links wrap nicely */
+.sidebar .meta a{
+  white-space: nowrap;
+}
+
+/* Active nav state: understated underline */
+nav a.active,
+nav a[aria-current="page"]{
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* Anchor jumps so headings aren’t hidden behind header */
+html{
+  scroll-padding-top: calc(var(--header-h) + 18px);
+}
+
+/* Mobile */
+@media (max-width: 900px){
+  :root{ --gutter: 16px; }
+  .layout{ grid-template-columns: 1fr; gap: 24px; }
+  .card{ padding: 26px 22px; }
+  .sidebar{ position: static; }
+  .sidebar img.avatar{ height: 260px; }
+}
