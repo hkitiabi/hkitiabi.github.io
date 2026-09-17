@@ -1353,3 +1353,14 @@ html{
   header .nav{ flex-direction: column; align-items: flex-start; gap: 10px; }
   header nav{ flex-direction: row; flex-wrap: wrap; gap: 8px 16px; }
 }
+
+/* Show the full square profile photo (no top/bottom cropping) */
+.sidebar img.avatar{
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center top;
+}
+@media (max-width: 900px){
+  .sidebar img.avatar{ height: auto; max-width: 360px; margin: 0 auto; }
+}
