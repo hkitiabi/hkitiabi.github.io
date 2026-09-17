@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Research — Henry Sohre Kitiabi, PhD, MPH</title>
+<meta name="description" content="Henry Sohre Kitiabi, PhD, MPH: postdoctoral research fellow in epidemiology at North Carolina State University."/>
 <link rel="stylesheet" href="assets/css/style.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,61 +15,89 @@
   <div class="nav">
     <div>
       <div class="brand">Henry Sohre Kitiabi, PhD, MPH</div>
-      <div class="tag">Advancing Data-Driven Public Health</div>
+      <div class="tag">Epidemiologist &middot; Infectious disease and aging</div>
     </div>
-    <nav><a href="index.html" >Home</a><a href="research.html" class=active>Research</a><a href="publications.html" >Publications</a><a href="teaching.html" >Teaching</a><a href="peer-review.html" >Peer Review</a><a href="cv.html" >CV</a><a href="contact.html" >Contact</a></nav>
+    <nav><a href="index.html">Home</a><a href="research.html" class="active" aria-current="page">Research</a><a href="publications.html">Publications</a><a href="teaching.html">Teaching</a><a href="peer-review.html">Service</a><a href="cv.html">CV</a><a href="contact.html">Contact</a></nav>
   </div>
 </header>
 <div class="container">
   <div class="layout">
-    
+
     <aside class="sidebar">
-      <img class="avatar" src="assets/img/henry-sohre-kitiabi.jpg" alt="Henry Sohre Kitiabi">
+      <img class="avatar" src="assets/img/henry-sohre-kitiabi.jpg" alt="Henry Sohre Kitiabi"
+        onerror="const d=document.createElement('div');d.className='avatar';d.textContent='HK';this.replaceWith(d);"/>
       <div class="name">Henry Sohre Kitiabi, PhD, MPH</div>
-      <div class="tagline">Advancing Data-Driven Public Health</div>
+      <div class="tagline">Postdoctoral Research Fellow, North Carolina State University</div>
       <hr/>
-      <div class="meta"><span class="badge">Location</span> Athens, Georgia, USA (30606)</div>
-      <div class="meta"><span class="badge">Email</span> <a href="mailto:hkitiabi@gmail.com">hkitiabi@gmail.com</a></div>
+      <div class="meta"><span class="badge">Location</span> Raleigh, North Carolina</div>
+      <div class="meta"><span class="badge">Email</span> <a href="mailto:hskitiab@ncsu.edu">hskitiab@ncsu.edu</a><br/><a href="mailto:hkitiabi@gmail.com">hkitiabi@gmail.com</a></div>
       <div class="meta"><span class="badge">Phone</span> (479) 316-1859</div>
       <hr/>
       <div class="meta">Links:<br/>
-        <a href="#">LinkedIn</a> · 
-        <a href="#">ORCID</a> · 
-        <a href="#">Google Scholar</a> · 
-        <a href="#">PubMed</a> · 
-        <a href="#">GitHub</a>
+        <a href="https://www.linkedin.com/in/henry-sohre-kitiabi-bsc-mph-1841462a" rel="noopener">LinkedIn</a> ·
+        <a href="https://github.com/hkitiabi" rel="noopener">GitHub</a>
       </div>
     </aside>
-    
+
     <main>
 <section class="card">
-  <h1>Research Experience</h1>
-  <h3>Georgia Department of Public Health — Data Analyst (Jul 2025–Present)</h3>
-  <ul>
-    <li>Analyze BRFSS Asthma Call-back Survey and SendSS I/O data to assess work-related asthma and infectious disease case demographics.</li>
-    <li>Produce data summaries, manuscripts, and surveillance reports.</li>
-  </ul>
-
-  <h3>UGA Biostatistical Consulting Center — Graduate RA (Jan–May 2025)</h3>
-  <ul>
-    <li>Developed the B3C webpage and automated survey extraction with Power Automate → Dataverse.</li>
-    <li>Implemented QuestionPro for survey administration; Microsoft Lists/Planner for tracking; M365 for invoicing.</li>
-  </ul>
-
-  <h3>UGA Dept. of Epidemiology & Biostatistics — Graduate RA (Jan 2023–Dec 2024)</h3>
-  <ul>
-    <li>Resolved data inconsistencies for the Crisis Pregnancy Centers (CPC) study via REDCap; validated locations and URLs across all states.</li>
-  </ul>
-
-  <h3>UGA Global Health Institute — Graduate RA (Jan 2020–Dec 2022)</h3>
-  <ul>
-    <li>Processed & analyzed TB transmission data from Uganda using R and geospatial methods.</li>
-    <li>Mapped TB hotspots via factor analysis (n=75) and supported a funded nested case-control study proposal.</li>
-  </ul>
+  <div class="kicker">Research</div>
+  <h1>What I work on</h1>
+  <p>My main focus is Alzheimer's disease and related dementias (ADRD) and healthcare-associated infections in long-term care. I also work on infectious diseases more broadly (TB, HIV, and COVID-19) and on HIV prevention and testing among adolescents. On the methods side, I use multilevel and causal analysis of large administrative claims data. I'm also interested in One Health surveillance.</p>
 </section>
-</main>
+
+<section class="card">
+  <h2>Current work</h2>
+    <h3>Postdoctoral Research Fellow, North Carolina State University</h3>
+    <p class="org">Rhea Epidemiology Lab, Department of Population Health and Pathobiology, College of Veterinary Medicine, Raleigh, NC · August 2025 – present</p>
+    <ul>
+      <li>I'm the lead analyst on a multilevel study of ADRD and urinary tract infection (UTI) among Medicare skilled nursing facility (SNF) residents. The data, used under a CMS Data Use Agreement, cover about 1.85 million SNF stays in about 14,400 facilities and 3,144 counties.</li>
+      <li>I built the analysis pipeline in R. It links MedPAR, MDS, LTCFocus, Payroll-Based Journal, and CDC/ATSDR Social Vulnerability Index data through an SSA-to-FIPS crosswalk; defines ADRD (CCW and Bynum algorithms) and tiered UTI outcomes from ICD-10-CM codes; scores comorbidity with the Elixhauser method; and fits three-level mixed-effects logistic models in glmmTMB, with ICC decomposition, change-in-estimate confounder screening, and tests for effect modification.</li>
+      <li>I designed a machine-learning arm to run alongside the regression models: gradient-boosted trees with facility-grouped cross-validation, assessed for discrimination, calibration, and fairness across subgroups.</li>
+      <li>For the facility-level (LTCFocus) analysis plan, I set up a tiered system for flagging missing data and rules for when to use multiple imputation.</li>
+      <li>I'm leading a scoping review of 29 studies on ADRD and healthcare-associated infections, using a standardized extraction protocol organized by infection site.</li>
+      <li>Manuscripts from the main ADRD–UTI analysis are under peer review.</li>
+    </ul>
+</section>
+
+<section class="card">
+  <h2>Earlier research</h2>
+    <h3>Graduate Research Assistant, Biostatistical Consulting Center (B3C)</h3>
+    <p class="org">Department of Epidemiology and Biostatistics, University of Georgia · January – May 2025</p>
+    <ul>
+      <li>Set up the center's research operations: survey administration in QuestionPro, automated data capture with Microsoft Dataverse and Power Automate, and project tracking and invoicing in Microsoft 365.</li>
+      <li>Led development of the center's webpage with UGA IT.</li>
+    </ul>
+    <h3>Graduate Research Assistant, Crisis Pregnancy Center Map Study</h3>
+    <p class="org">Department of Epidemiology and Biostatistics, University of Georgia · January 2023 – December 2024</p>
+    <ul>
+      <li>Updated and verified the national Crisis Pregnancy Center database for all 50 states and resolved data discrepancies in REDCap, so the 2024 dataset could be released publicly on schedule for epidemiological research.</li>
+    </ul>
+    <h3>Health Equity Fellow, Metro-Atlanta Wellbeing Project</h3>
+    <p class="org">Health Equity Hub, College of Public Health, University of Georgia · October 2022 – May 2023</p>
+    <ul>
+      <li>Worked with the City of Clarkston, GA, on data-informed strategies to improve access to food, healthcare, and housing services for residents with limited English proficiency.</li>
+      <li>Created a Swahili audiovisual navigation tool that increased engagement among non-English speakers by 40%.</li>
+    </ul>
+    <h3>Graduate Research Assistant, Tuberculosis Transmission Studies</h3>
+    <p class="org">Global Health Institute, University of Georgia · January 2020 – December 2022</p>
+    <ul>
+      <li>Processed and analyzed TB transmission data from Uganda in R, combining contact data from wearable sensors with geospatial data to find transmission hotspots (factor analysis, n = 75).</li>
+      <li>Helped develop the methods for a nested case-control study of TB-naïve individuals. The study was funded in 2024.</li>
+      <li>Ran weekly meetings with field teams in Uganda to track data collection and fix data-quality problems.</li>
+      <li>Reviewed the literature for manuscripts on TB transmission frameworks.</li>
+    </ul>
+    <h3>Data Analysis and Resource Mobilization Intern, CARE International</h3>
+    <p class="org">Food and Nutrition Security Department; Sexual and Reproductive Health and Rights Department, Atlanta, GA · June – December 2019</p>
+    <ul>
+      <li>Analyzed baseline and endline survey data from a nutrition program in Bangladesh (SPSS; descriptive statistics, regression, ANOVA). My report informed two redesigns of the program.</li>
+      <li>Combined 80 program reports from Tanzania, Ethiopia, the Democratic Republic of the Congo, and India into an evidence-based toolkit on sexual and reproductive health and rights (SRHR).</li>
+      <li>Developed a standardized evaluation tool that was adopted for USAID-funded programs.</li>
+    </ul>
+</section>
+    </main>
   </div>
 </div>
-<div class="footer">© 2025 Henry Sohre Kitiabi, PhD, MPH • Built for GitHub Pages</div>
+<div class="footer">© 2026 Henry Sohre Kitiabi, PhD, MPH</div>
 </body>
 </html>
