@@ -1342,3 +1342,14 @@ html{
   .sidebar{ position: static; }
   .sidebar img.avatar{ height: 260px; }
 }
+
+/* Entry dates and affiliations (added Sept 2026) */
+.card .when{ font-weight: 400; color: rgba(31, 41, 55, 0.7); white-space: nowrap; }
+.card .org{ margin: -0.35rem 0 0.5rem; color: rgba(31, 41, 55, 0.75); font-size: 0.95rem; }
+.card .btn + .btn{ margin-left: 8px; }
+.card .btn-row{ display: flex; flex-wrap: wrap; gap: 10px; }
+.card .btn-row .btn{ margin-left: 0; }
+@media (max-width: 700px){
+  header .nav{ flex-direction: column; align-items: flex-start; gap: 10px; }
+  header nav{ flex-direction: row; flex-wrap: wrap; gap: 8px 16px; }
+}
